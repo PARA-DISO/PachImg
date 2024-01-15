@@ -7,7 +7,11 @@ description = "CLI application to convert to 3-bit color images reminiscent of n
 authors = ["PARA-DISO"]
 readme = "README.md"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
+[package.metadata.deb]
+# TODO: set meta datas
+maintainer = "PARADISO <paradiso@ymail.ne.jp>"
+copyright = "2024, PARADISO <paradiso@ymail.ne.jp>"
+license-file = ["LICENSE", "0"]
 [dependencies]
 image="0.24.7"
 # Serdes(JSON)
