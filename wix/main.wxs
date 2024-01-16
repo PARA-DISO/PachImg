@@ -101,7 +101,7 @@
                             Source='wix\License.rtf'
                             KeyPath='yes'/>
                     </Component>
-                    
+                   
                     <Directory Id='Bin' Name='bin'>
                         <Component Id='Path' Guid='C12C29A3-35BE-45E7-ACE0-A3E658816A66' KeyPath='yes'>
                             <Environment

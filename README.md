@@ -54,6 +54,64 @@ Linux(Ubuntu), Windows 11における動作を確認済み。
 ./pachimg -i [file_name] --original_size
 ```
 
+## Installation
+
+### From source
+
+一般的なRustのプログラムと同様にビルド。
+
+#### 方法1
+
+1. 本リポジトリをクローン or ダウンロード
+2. ダウンロードの場合のみ: ダウンロードしたファイルを解凍
+3. clone or 解凍したディレクトリへ移動
+4. clone or 解凍したディレクトリで以下のコマンドを実行
+
+```sh
+cargo build -r
+```
+
+clone or 解凍したディレクトリより`./target/release`の下に`pachimg`(windowsでは`pachimg.exe`)が生成される。
+
+必要であれば、実行ファイルを移動し、PATHを通す。
+
+#### 方法2
+
+1. 本リポジトリをクローン or ダウンロード
+2. ダウンロードの場合のみ: ダウンロードしたファイルを解凍
+3. clone or 解凍したディレクトリへ移動
+4. clone or 解凍したディレクトリで以下のコマンドを実行
+
+```sh
+cargo install --path .
+```
+
+### Windows
+
+  windows用のインストーラ`pachimg-x.x.x-x86_64.msi`をダウンロードし、実行。
+
+#### Uninstallation
+  
+  1. 「設定」より、`アプリ>インストールされているアプリ`へ移動
+  2. 「pachimg」のメニューより、「アンインストール」を選択
+
+### Linux (Ubuntu)
+
+1. debianパッケージ`.deb`をダウンロード
+2. 以下のコマンドを実行
+
+```sh
+sudo apt install pachimg_x.x.x-1_amd64.deb
+```
+
+#### Uinistallation
+
+以下のコマンドを実行。
+
+```sh
+sudo apt remove --purge pachimg
+```
+
 ## Supported image formats
 
 PNGやJPEG等[image crate](https://docs.rs/image/latest/image/)でサポートされている画像形式。  
