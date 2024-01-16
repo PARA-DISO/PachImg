@@ -46,7 +46,7 @@ fn main() {
             // 画像サイズをPC88の画面サイズに合わせる
             // FIXME: w == h の画像でアスペクト比が崩れる
             DynamicImage::from(
-                if img.width() < img.height() {
+                if img.width() <= img.height() {
                     let tmp = img.resize(640, 400, image::imageops::FilterType::Lanczos3);
                     tmp.resize_exact(tmp.width() / 2, 100, image::imageops::FilterType::Lanczos3)
                 } else {
