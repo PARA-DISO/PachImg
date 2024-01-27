@@ -1,8 +1,10 @@
+mod correction;
 ///
 /// `pachimg` is a CLI Application to convert image to 3bit color.
-/// 
+///
 mod cvt_image;
 use clap::Parser;
+use correction::CorrectionParams;
 use cvt_image::{cvt_4bit_color, cvt_image_from_full_color, cvt_image_with_lut};
 use image::DynamicImage;
 use std::fs::File;
@@ -10,7 +12,7 @@ use std::io::BufReader;
 /// Image Conversion to 3bit color
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
-struct Args {
+pub struct Args {
     /// Input image file Name
     #[arg(short, long)]
     input: String,
@@ -26,6 +28,24 @@ struct Args {
     /// Lookup table file name
     #[arg(short, long, default_value_t = String::from(""))]
     lookup: String,
+    /// Enabling gamma correction [default: false]
+    #[arg(long, default_value_t = false)]
+    gamma_correction: bool,
+    /// Gamma correction value [default: 2.0]
+    #[arg(long, default_value_t = 2.0)]
+    gamma: f32,
+    /// Enabling sigmoid correction [default: false]
+    #[arg(long, default_value_t = false)]
+    sigmoid_correction: bool,
+    /// Gain of the sigmoid curve [default: 4]
+    #[arg(long, default_value_t = 4f32)]
+    gain: f32,
+    /// Inflection point of the sigmoid curve [default: 0.8]
+    #[arg(long, default_value_t = 0.8)]
+    inflection: f32,
+    // debugs
+    #[arg(long, default_value_t = String::from(""))]
+    debug_out: String,
 }
 fn main() {
     let args = Args::parse();
@@ -57,7 +77,13 @@ fn main() {
             )
         }
     };
-
+    // 補正処理
+    let image = correction::correction(image, (&args).into());
+    // Note: Debug用出力
+    if !args.debug_out.is_empty() {
+        image.save(args.debug_out).unwrap();
+    }
+    //
     if !args.lookup.is_empty() {
         // LUTを使う
         let lut: Vec<[[u8; 3]; 4]> = {

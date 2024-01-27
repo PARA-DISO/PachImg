@@ -38,7 +38,7 @@ pub fn cvt_image_with_lut(
             [px[y][0], px[y][1], px[y][2], px[z][0], px[z][1], px[z][2]],
         )
     };
-    
+
     RgbImage::from_vec(img.width() * 2, img.height() * 4, {
         let (odd, even): (Vec<[u8; 6]>, Vec<[u8; 6]>) = if let Some(rgb_image) = img.as_rgb8() {
             rgb_image.pixels().map(lambda).unzip()
